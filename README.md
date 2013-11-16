@@ -1,4 +1,41 @@
 Leaflet.KoreanTmsProviders
-==========================
+=================
+An extension to [Leaflet](http://leafletjs.com/) that contains configurations for various Korean tile providers.
 
-Korean TileMapService Providers (DaumMap, NaverMap, etc.)
+# Usage
+```Javascript
+//add Daum Street Layer to map.
+new L.Proj.TileLayer.TMS.Provider('DaumMap.Street').addTo(map);
+```
+
+Providers
+===
+
+Current options suitable for basemaps are:
+* DaumMap
+    * DaumMap.Street
+    * Daum.Map.Satellite
+
+Current options suitable for overlays are:
+* ...
+
+
+Goodies
+===
+
+An other little goodie this library provides is a prefilled layer control,so you can just provide an array of strings:
+
+```JavaScript
+var baseLayers = {
+			'DaumMap.Street': new L.Proj.TileLayer.TMS.Provider('DaumMap.Street').addTo(map),
+			'DaumMap.Satellite' : new L.Proj.TileLayer.TMS.Provider('DaumMap.Satellite')
+		};
+var overlayLayers = {};			
+var layerControl = L.control.layers.provided(baseLayers, overlays).addTo(map);
+
+//you can still add your own afterwards with
+layerControl.addBaseLayer(layer, name);
+```
+
+This work was inspired from <https://github.com/leaflet-extras/leaflet-providers> and <https://github.com/kartena/Proj4Leaflet>.
+
