@@ -8,6 +8,22 @@ An extension to [Leaflet](http://leafletjs.com/) that contains configurations fo
 new L.Proj.TileLayer.TMS.Provider('DaumMap.Street').addTo(map);
 ```
 
+This library provides a prefilled layer control,so you can just provide an array of strings:
+
+```JavaScript
+var baseLayers = {
+			'DaumMap.Street': new L.Proj.TileLayer.TMS.Provider('DaumMap.Street').addTo(map),
+			'DaumMap.Satellite' : new L.Proj.TileLayer.TMS.Provider('DaumMap.Satellite')
+		};
+var overlayLayers = {};			
+var layerControl = L.control.layers.provided(baseLayers, overlays).addTo(map);
+
+//you can still add your own afterwards with
+layerControl.addBaseLayer(layer, name);
+```
+
+a full example
+
 ```Javascript
 var map = L.map('map', {
 	crs: L.Proj.CRS.TMS.Daum, 
@@ -39,22 +55,8 @@ Current options suitable for overlays are:
 * ...
 
 
-Goodies
-===
 
-This library provides a prefilled layer control,so you can just provide an array of strings:
 
-```JavaScript
-var baseLayers = {
-			'DaumMap.Street': new L.Proj.TileLayer.TMS.Provider('DaumMap.Street').addTo(map),
-			'DaumMap.Satellite' : new L.Proj.TileLayer.TMS.Provider('DaumMap.Satellite')
-		};
-var overlayLayers = {};			
-var layerControl = L.control.layers.provided(baseLayers, overlays).addTo(map);
-
-//you can still add your own afterwards with
-layerControl.addBaseLayer(layer, name);
-```
 
 This work was inspired from <http://plugins.qgis.org/plugins/tmsforkorea>, <https://github.com/leaflet-extras/leaflet-providers>, and <https://github.com/kartena/Proj4Leaflet>.
 
