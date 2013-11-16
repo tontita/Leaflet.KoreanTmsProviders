@@ -56,5 +56,5 @@ var layerControl = L.control.layers.provided(baseLayers, overlays).addTo(map);
 layerControl.addBaseLayer(layer, name);
 ```
 
-This work was inspired from <https://github.com/leaflet-extras/leaflet-providers> and <https://github.com/kartena/Proj4Leaflet>.
+This work was inspired from <http://plugins.qgis.org/plugins/tmsforkorea>, <https://github.com/leaflet-extras/leaflet-providers>, and <https://github.com/kartena/Proj4Leaflet>.
 
