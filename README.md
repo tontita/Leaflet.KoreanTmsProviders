@@ -8,6 +8,25 @@ An extension to [Leaflet](http://leafletjs.com/) that contains configurations fo
 new L.Proj.TileLayer.TMS.Provider('DaumMap.Street').addTo(map);
 ```
 
+```Javascript
+var map = L.map('map', {
+	crs: L.Proj.CRS.TMS.Daum, 
+	continuousWorld: true,
+	worldCopyJump: false,
+	zoomControl: true
+});
+
+var baseLayers = {
+	'DaumMap.Street': new L.Proj.TileLayer.TMS.Provider('DaumMap.Street').addTo(map),
+	'DaumMap.Satellite' : new L.Proj.TileLayer.TMS.Provider('DaumMap.Satellite')
+};
+
+var overlayLayers = {};
+
+L.control.layers(baseLayers, overlayLayers, {collapsed: false}).addTo(map);
+map.setView([38, 127], 0);
+```
+
 Providers
 ===
 
