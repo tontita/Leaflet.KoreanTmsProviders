@@ -7,9 +7,7 @@ An extension to [Leaflet](http://leafletjs.com/) that contains configurations fo
 //add Daum Street Layer to map.
 new L.Proj.TileLayer.TMS.Provider('DaumMap.Street').addTo(map);
 ```
-
-This library provides a prefilled layer control,so you can just provide an array of strings:
-
+This library provides a prefilled layer control, so you can just provide an array of strings:
 ```JavaScript
 var baseLayers = {
 			'DaumMap.Street': new L.Proj.TileLayer.TMS.Provider('DaumMap.Street').addTo(map),
@@ -21,9 +19,7 @@ var layerControl = L.control.layers.provided(baseLayers, overlays).addTo(map);
 //you can still add your own afterwards with
 layerControl.addBaseLayer(layer, name);
 ```
-
-a full example
-
+An example
 ```Javascript
 var map = L.map('map', {
 	crs: L.Proj.CRS.TMS.Daum, 
