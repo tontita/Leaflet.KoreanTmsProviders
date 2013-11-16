@@ -23,7 +23,7 @@ Current options suitable for overlays are:
 Goodies
 ===
 
-An other little goodie this library provides is a prefilled layer control,so you can just provide an array of strings:
+This library provides a prefilled layer control,so you can just provide an array of strings:
 
 ```JavaScript
 var baseLayers = {
