@@ -14,6 +14,7 @@
   			}
    		);
 
+
 	L.Proj.TileLayer.TMS.Provider = L.Proj.TileLayer.TMS.extend({
 		initialize: function (arg, crs, options) {
 			var providers = L.Proj.TileLayer.TMS.Provider.providers;
@@ -94,16 +95,27 @@
 				Street: {},
 				Satellite: {
 					url: 'http://s{s}.maps.daum-img.net/L{z}/{y}/{x}.jpg'
+				},
+				Physical: {
+					url: 'http://sr{s}.maps.daum-img.net/map/image/G03/sr/1.00/L{z}/{y}/{x}.png',
+					option: {
+						opacity: 0.75
+					}
+				},
+				Hybrid: {
+					url: 'http://h{s}.maps.daum-img.net/map/image/G03/h/1.20/L{z}/{y}/{x}.png'
 				}
+
+
 			}
 		},
 		Naver: {}
-};
+	};
 
-
-	//L.proj.tileLayer.tms.provider = function (provider, crs, options) {
-	//	return new L.Proj.TileLayer.TMS.Provider(provider, crs, options);
-	//};
+	
+	L.Proj.TileLayer.TMS.provider = function (provider, crs, options) {
+		return new L.Proj.TileLayer.TMS.Provider(provider, crs, options);
+	};
 
 	L.Control.Layers.Provided = L.Control.Layers.extend({
 		initialize: function (base, overlay, options) {
