@@ -57,7 +57,9 @@ Providers
 Current options suitable for basemaps are:
 * DaumMap
     * DaumMap.Street
-    * Daum.Map.Satellite
+    * DaumMap.Satellite
+    * DaumMap.Physical
+    * DaumMap.Hybrid
 
 Current options suitable for overlays are:
 * ...
