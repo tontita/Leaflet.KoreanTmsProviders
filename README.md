@@ -7,13 +7,22 @@ An extension to [Leaflet](http://leafletjs.com/) that contains configurations fo
 //add Daum Street Layer to map.
 new L.Proj.TileLayer.TMS.Provider('DaumMap.Street').addTo(map);
 ```
+```Javascript
+//add Daum Street Layer to map.
+L.Proj.TileLayer.TMS.provider('DaumMap.Street').addTo(map);
+```
 This library provides a prefilled layer control, so you can just provide an array of strings:
 ```JavaScript
 var baseLayers = {
-			'DaumMap.Street': new L.Proj.TileLayer.TMS.Provider('DaumMap.Street').addTo(map),
-			'DaumMap.Satellite' : new L.Proj.TileLayer.TMS.Provider('DaumMap.Satellite')
-		};
-var overlayLayers = {};			
+	'Daum Street Map': L.Proj.TileLayer.TMS.provider('DaumMap.Street').addTo(map),
+	'Daum Satellite Map' : L.Proj.TileLayer.TMS.provider('DaumMap.Satellite')
+};
+
+var overlayLayers = {
+	'Daum Hybrid Map' : L.Proj.TileLayer.TMS.provider('DaumMap.Hybrid'),
+	'Daum Physical Map' : L.Proj.TileLayer.TMS.provider('DaumMap.Physical')
+};		
+
 var layerControl = L.control.layers.provided(baseLayers, overlays).addTo(map);
 
 //you can still add your own afterwards with
@@ -29,11 +38,14 @@ var map = L.map('map', {
 });
 
 var baseLayers = {
-	'DaumMap.Street': new L.Proj.TileLayer.TMS.Provider('DaumMap.Street').addTo(map),
-	'DaumMap.Satellite' : new L.Proj.TileLayer.TMS.Provider('DaumMap.Satellite')
+	'Daum Street Map': L.Proj.TileLayer.TMS.provider('DaumMap.Street').addTo(map),
+	'Daum Satellite Map' : L.Proj.TileLayer.TMS.provider('DaumMap.Satellite')
 };
 
-var overlayLayers = {};
+var overlayLayers = {
+	'Daum Hybrid Map' : L.Proj.TileLayer.TMS.provider('DaumMap.Hybrid'),
+	'Daum Physical Map' : L.Proj.TileLayer.TMS.provider('DaumMap.Physical')
+};
 
 L.control.layers(baseLayers, overlayLayers, {collapsed: false}).addTo(map);
 map.setView([38, 127], 0);
