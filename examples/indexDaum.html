@@ -28,7 +28,7 @@
 
 
 		var map = L.map('map', {
-			crs: L.Proj.CRS.TMS.Daum, //L.Proj.TileLayer.TMS.crsDAUM,//crsDaum,
+			crs: L.Proj.CRS.TMS.Daum,
 			continuousWorld: true,
 			worldCopyJump: false,
 			zoomControl: true
@@ -36,11 +36,13 @@
 
 
 		var baseLayers = {
-			'DaumMap.Street': new L.Proj.TileLayer.TMS.Provider('DaumMap.Street').addTo(map),
-			'DaumMap.Satellite' : new L.Proj.TileLayer.TMS.Provider('DaumMap.Satellite')
+			'Daum Street Map': L.Proj.TileLayer.TMS.provider('DaumMap.Street').addTo(map),
+			'Daum Satellite Map' : L.Proj.TileLayer.TMS.provider('DaumMap.Satellite')
 		};
 
 		var overlayLayers = {
+			'Daum Hybrid Map' : L.Proj.TileLayer.TMS.provider('DaumMap.Hybrid'),
+			'Daum Physical Map' : L.Proj.TileLayer.TMS.provider('DaumMap.Physical')
 		};
 
 		L.control.layers(baseLayers, overlayLayers, {collapsed: false}).addTo(map);
