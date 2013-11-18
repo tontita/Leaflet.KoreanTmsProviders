@@ -58,12 +58,11 @@ Current options suitable for basemaps are:
 * DaumMap
     * DaumMap.Street
     * DaumMap.Satellite
-    * DaumMap.Physical
-    * DaumMap.Hybrid
 
 Current options suitable for overlays are:
-* ...
-
+* DaumMap
+    * DaumMap.Physical
+    * DaumMap.Hybrid
 
 
 
