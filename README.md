@@ -78,6 +78,7 @@ Current options suitable for basemaps are:
     * NaverMap.Satellite
     * NaverMap.Hybrid
     * NaverMap.Cadastral
+
 Current options suitable for overlays are:
 * DaumMap
     * DaumMap.Physical
