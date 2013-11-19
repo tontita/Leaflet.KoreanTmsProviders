@@ -86,6 +86,5 @@ Current options suitable for overlays are:
     * NaverMap.Cadastral
 
 
-
 This work was inspired from <http://plugins.qgis.org/plugins/tmsforkorea>, <https://github.com/leaflet-extras/leaflet-providers>, and <https://github.com/kartena/Proj4Leaflet>.
 
