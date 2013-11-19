@@ -1,3 +1,4 @@
+
 (function () {
 	'use strict';
 
@@ -12,6 +13,17 @@
   				resolutions: [2048, 1024, 512, 256, 128, 64, 32, 16, 8, 4, 2, 1, 0.5, 0.25]
   			}
    		);
+
+	L.Proj.CRS.TMS.Naver = new L.Proj.CRS.TMS(
+			'EPSG:5179',
+			'+proj=tmerc +lat_0=38 +lon_0=127.5 +k=0.9996 +x_0=1000000 +y_0=2000000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
+  			//[90112, 1192896, 1990673, 2761664],
+  			[90112, 1192896, 614400, 1717184],
+  			{
+  				resolutions: [2048, 1024, 512, 256, 128, 64, 32, 16, 8, 4, 2, 1, 0.5, 0.25]
+  			}
+   		);
+
 
 
 	L.Proj.TileLayer.TMS.Provider = L.Proj.TileLayer.TMS.extend({
@@ -65,6 +77,23 @@
 			// Compute final options combining provider options with any user overrides
 			var layerOpts = L.Util.extend({}, provider.options, options);
 			L.Proj.TileLayer.TMS.prototype.initialize.call(this, provider.url, provider.crs, layerOpts);
+
+			if (providerName == 'NaverMap' ) {
+				this.getTileUrl = function (tilePoint) {
+
+			    var toRet;
+		    	console.log( "NaverMap/" + this._getSubdomain(tilePoint) + " : " + tilePoint.x + ", " + tilePoint.y + "("  + (tilePoint.y - Math.pow(2, tilePoint.z-1)) + ")" + ", " + tilePoint.z );
+
+		    	toRet = L.Util.template(this._url, L.extend({
+		      		s: this._getSubdomain(tilePoint),
+		      		x: tilePoint.x,
+		      		y: tilePoint.y - Math.pow(2, tilePoint.z-1),
+		      		z: tilePoint.z //+ 1
+	    		}, this.options));
+
+		    	return toRet;
+		  		}
+			}
 		}
 	});
 
@@ -79,10 +108,9 @@
 			url: 'http://i{s}.maps.daum-img.net/map/image/G03/i/1.20/L{z}/{y}/{x}.png',
 			crs: L.Proj.CRS.TMS.Daum, //L.Proj.TileLayer.TMS.crsDAUM, //crsDaum,
 			options: {
-				maxZoom: 13, 
+				maxZoom: 14, 
 				minZoom: 0,
 				zoomReverse: true,
-				zoomOffset: 1,
 				subdomains: '0123',
 				continuousWorld: true,
 				attribution:
@@ -98,7 +126,7 @@
 				},
 				Physical: {
 					url: 'http://sr{s}.maps.daum-img.net/map/image/G03/sr/1.00/L{z}/{y}/{x}.png',
-					option: {
+					options: {
 						opacity: 0.75
 					}
 				},
@@ -109,7 +137,39 @@
 
 			}
 		},
-		Naver: {}
+		NaverMap: {
+			url: 'http://onetile{s}.map.naver.net/get/29/0/0/{z}/{x}/{y}/bl_vc_bg/ol_vc_an',
+			crs: L.Proj.CRS.TMS.Naver, 
+			options: {
+				maxZoom: 13, 
+				minZoom: 0,
+				tms: true,
+				zoomOffset: 1,
+				subdomains: '1234',
+				continuousWorld: true,
+				attribution:
+					'<a href="http://www.nhncorp.com" target="_blank" style="text-decoration: none !important;">© <span style="display: inline; font-family: Tahoma,sans-serif !important; font-size: 9px !important; font-weight: bold !important; font-style: normal !important; color: #009BC8 !important; text-decoration: none !important;">'
+					+ 'NHN Corp.</span></a>'
+					+ '<img class="nmap_logo_map" src="http://static.naver.net/maps2/logo_naver_s.png" width="43" height="9" alt="NAVER">'
+			},
+			variants: {
+				Street: {},
+				Satellite: {
+					url: 'http://onetile{s}.map.naver.net/get/29/0/0/{z}/{x}/{y}/bl_st_bg/ol_st_an'
+				}, 
+				Cadastral: {
+					url: 'http://onetile{s}.map.naver.net/get/29/0/0/{z}/{x}/{y}/bl_vc_bg/ol_lp_cn',
+					options: {
+						opacity: 0.75
+					}
+				},
+				Hybrid: {
+					url: 'http://onetile{s}.map.naver.net/get/29/0/0/{z}/{x}/{y}/bl_st_bg/ol_st_rd/ol_st_an'
+				}
+
+			}
+
+		}
 	};
 
 	
