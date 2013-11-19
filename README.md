@@ -73,12 +73,17 @@ Current options suitable for basemaps are:
 * DaumMap
     * DaumMap.Street
     * DaumMap.Satellite
-
+* NaverMap
+    * NaverMap.Street
+    * NaverMap.Satellite
+    * NaverMap.Hybrid
+    * NaverMap.Cadastral
 Current options suitable for overlays are:
 * DaumMap
     * DaumMap.Physical
     * DaumMap.Hybrid
-
+* NaverMap
+    * NaverMap.Cadastral
 
 
 
