@@ -82,7 +82,7 @@
 				this.getTileUrl = function (tilePoint) {
 
 			    var toRet;
-		    	console.log( "NaverMap/" + this._getSubdomain(tilePoint) + " : " + tilePoint.x + ", " + tilePoint.y + "("  + (tilePoint.y - Math.pow(2, tilePoint.z-1)) + ")" + ", " + tilePoint.z );
+		    	//console.log( "NaverMap/" + this._getSubdomain(tilePoint) + " : " + tilePoint.x + ", " + tilePoint.y + "("  + (tilePoint.y - Math.pow(2, tilePoint.z-1)) + ")" + ", " + tilePoint.z );
 
 		    	toRet = L.Util.template(this._url, L.extend({
 		      		s: this._getSubdomain(tilePoint),
@@ -108,9 +108,10 @@
 			url: 'http://i{s}.maps.daum-img.net/map/image/G03/i/1.20/L{z}/{y}/{x}.png',
 			crs: L.Proj.CRS.TMS.Daum, //L.Proj.TileLayer.TMS.crsDAUM, //crsDaum,
 			options: {
-				maxZoom: 14, 
+				maxZoom: 13, 
 				minZoom: 0,
 				zoomReverse: true,
+				zoomOffset: 1,
 				subdomains: '0123',
 				continuousWorld: true,
 				attribution:
