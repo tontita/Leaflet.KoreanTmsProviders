@@ -28,6 +28,21 @@ var layerControl = L.control.layers.provided(baseLayers, overlays).addTo(map);
 //you can still add your own afterwards with
 layerControl.addBaseLayer(layer, name);
 ```
+```JavaScript
+var baseLayers = {
+	'Naver Street Map': L.Proj.TileLayer.TMS.provider('NaverMap.Street').addTo(map),
+	'Naver Satellite Map': L.Proj.TileLayer.TMS.provider('NaverMap.Satellite'),
+	'Naver Hybrid Map': L.Proj.TileLayer.TMS.provider('NaverMap.Hybrid'),
+	'Naver Cadastral Map': L.Proj.TileLayer.TMS.provider('NaverMap.Cadastral', null, {opacity : 1.0})
+};
+
+var overlayLayers = {
+	'Naver Cadastral Map': L.Proj.TileLayer.TMS.provider('NaverMap.Cadastral')
+};
+
+L.control.layers(baseLayers, overlayLayers, {collapsed: false}).addTo(map);
+```
+
 An example
 ```Javascript
 var map = L.map('map', {
