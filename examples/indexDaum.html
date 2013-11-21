@@ -46,7 +46,7 @@
 		};
 
 		L.control.layers(baseLayers, overlayLayers, {collapsed: false}).addTo(map);
-		map.setView([38, 127], 0);
+		map.setView([38, 127], 1);
 
 		
 		//three markers
@@ -57,11 +57,17 @@
      	L.marker([37.0, 129.0]).addTo(map)
    				 .bindPopup("latlng: 37.0, 129.0")
    				 .openPopup(); 				 
-   		var latlng2 = new L.LatLng(38.0, 127.0);
-   		var xy2 = L.Proj.CRS.TMS.Daum.project(latlng2);
-   		L.marker(latlng2).addTo(map)
-   				 .bindPopup("latlng: " + latlng2 + ", xy: " + xy2.toString())
+   		var latlng1 = new L.LatLng(38.0, 127.0);
+   		var mypoint1 = L.Proj.CRS.TMS.Daum.project(latlng1);
+   		L.marker(latlng1).addTo(map)
+   				 .bindPopup("latlng1: " + latlng1 + ", xy1: " + mypoint1.toString())
    				 .openPopup();
+
+   		var mypoint2 = L.point(200000, 500000);
+   		var latlng2 = L.Proj.CRS.TMS.Daum.projection.unproject(mypoint2);	
+   		L.marker(latlng2).addTo(map)
+   				 .bindPopup("latlng2: " + latlng2 + ", xy2: " + mypoint2.toString())
+   				 .openPopup();	 
 
 
 	</script>

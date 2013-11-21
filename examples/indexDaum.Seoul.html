@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>Leaflet Korean Provider Demo</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<!-- Leaflet style. REQUIRED! -->
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+	<!--[if lte IE 8]>
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
+	<![endif]-->
+	<style>
+		html { height: 100% }
+		body { height: 100%; margin: 0; padding: 0;}
+		.map{ height: 100% }
+
+		.info {
+		    padding: 6px 8px;
+		    font: 14px/16px Arial, Helvetica, sans-serif;
+		    background: white;
+		    background: rgba(255,255,255,0.8);
+		    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+		    border-radius: 5px;
+		}
+		.info h4 {
+		    margin: 0 0 5px;
+		    color: #777;
+		}
+
+		.legend {
+		    line-height: 18px;
+		    color: #555;
+		}
+		.legend i {
+		    width: 18px;
+		    height: 18px;
+		    float: left;
+		    margin-right: 8px;
+		    opacity: 0.7;
+		}
+
+	</style>
+	
+</head>
+<body>
+	<div id="map" class="map"></div>
+	<script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet-src.js"></script>
+	<script src="../lib/proj4-compressed.js"></script>
+	<script src="../lib/proj4leaflet.js"></script>
+	<script src="../src/Leaflet.KoreanTmsProviders.js"></script>
+	<script src="./seoul07.geojson"></script>
+	
+	<script>
+
+
+
+		var map = L.map('map', {
+			crs: L.Proj.CRS.TMS.Daum,
+			continuousWorld: true,
+			worldCopyJump: false,
+			zoomControl: true
+		});
+
+
+		//https://groups.google.com/forum/#!topic/osgeo-kr/0oMKjzyLPW4
+		//load a shapefile with EUC-KR, EPSG:2097
+		// +proj=tmerc +lat_0=38 +lon_0=127.0028902777778 +k=1 +x_0=200000 +y_0=500000 +ellps=bessel +towgs84=-115.8,474.99,674.11,-1.16,2.31,1.63,6.43 +units=m +no_defs
+		//export to UTF-8, EPSG:4326
+		
+		var seoul_boundary = L.geoJson(seoul07, {style: {weight: 1, fillOpacity: 0.1}});
+		var geojson = L.geoJson(seoul07, {style: style, onEachFeature: onEachFeature}).addTo(map);
+
+		var baseLayers = {
+			'Daum Street Map': L.Proj.TileLayer.TMS.provider('DaumMap.Street').addTo(map),
+			'Daum Satellite Map' : L.Proj.TileLayer.TMS.provider('DaumMap.Satellite')
+		};
+
+		var overlayLayers = {
+			'Daum Hybrid Map' : L.Proj.TileLayer.TMS.provider('DaumMap.Hybrid'),
+			'Daum Physical Map' : L.Proj.TileLayer.TMS.provider('DaumMap.Physical'),
+			'서울시 행정경계' : geojson,
+			'서울시 행정경계 boundary-line only': seoul_boundary
+		};
+
+		L.control.layers(baseLayers, overlayLayers, {collapsed: true}).addTo(map);
+
+
+		var info = L.control();
+
+		info.onAdd = function (map) {
+		    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+		    this.update();
+		    return this._div;
+		};
+
+		// method that we will use to update the control based on feature properties passed
+		info.update = function (props, mylatlng) {
+			//console.log("latlng: " + mylatlng);
+		    this._div.innerHTML = '<h4>서울시 행정경계(동)별 면적</h4>' +  (props ?
+		    //this._div.innerHTML = '<h4>AdmDistricts in Seoul</h4>' +  (props ?
+		        '<b>' + props.ADM_DR_NM + '</b><br />' + props.SHAPE_AREA + ' km<sup>2</sup>'
+		        : '행정경계(동)을 선택하세요') + (mylatlng ? '<br>' +  mylatlng : '') ;
+		   		//: 'Hover over a AdmDistrict');
+		};
+
+		info.addTo(map);
+
+		var legend = L.control({position: 'bottomright'});
+
+		legend.onAdd = function (map) {
+
+		    var div = L.DomUtil.create('div', 'info legend'),
+		        grades = [0, 100000, 200000, 500000, 1000000, 2000000, 5000000, 10000000],
+		        labels = [];
+
+		    // loop through our density intervals and generate a label with a colored square for each interval
+		    for (var i = 0; i < grades.length; i++) {
+		        div.innerHTML +=
+		            '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+		            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+		    }
+
+		    return div;
+		};
+
+		legend.addTo(map);
+
+		 L.control.scale().addTo(map);
+
+
+		/*
+		//three markers
+		L.marker([39.0, 125.0]).addTo(map)
+   				 .bindPopup("latlng: 39.0, 125.0")
+   				 .openPopup();
+
+     	L.marker([37.0, 129.0]).addTo(map)
+   				 .bindPopup("latlng: 37.0, 129.0")
+   				 .openPopup(); 				 
+   		var latlng2 = new L.LatLng(38.0, 127.0);
+   		var xy2 = L.Proj.CRS.TMS.Daum.project(latlng2);
+   		L.marker(latlng2).addTo(map)
+   				 .bindPopup("latlng: " + latlng2 + ", xy: " + xy2.toString())
+   				 .openPopup();
+		*/
+
+		map.setView([37.55, 127], 5);
+
+
+		function getColor(d) {
+			
+			var color = d > 10000000 ? '#800026' :
+           d > 5000000  ? '#BD0026' :
+           d > 2000000  ? '#E31A1C' :
+           d > 1000000  ? '#FC4E2A' :
+           d > 500000   ? '#FD8D3C' :
+           d > 200000   ? '#FEB24C' :
+           d > 100000   ? '#FED976' :
+                      '#FFEDA0';
+			//console.log("d: " + d + ", " + "color:" + color);
+            return color;          
+		}
+
+		function style(feature) {
+    		return {
+  	    	  fillColor: getColor(feature.properties.SHAPE_AREA),
+    	    	weight: 2,
+       			opacity: 1,
+    			color: 'white',
+    		    dashArray: '3',
+    		    fillOpacity: 0.5
+    		};
+		}
+
+		function onEachFeature(feature, layer) {
+		    layer.on({
+		        mouseover: highlightFeature,
+		        mouseout: resetHighlight,
+		        click: zoomToFeature
+		    });
+		}
+
+
+		function highlightFeature(e) {
+		    var layer = e.target;
+
+		    layer.setStyle({
+		        weight: 5,
+		        color: '#666',
+		        dashArray: '',
+		        fillOpacity: 0.7
+		    });
+
+		    if (!L.Browser.ie && !L.Browser.opera) {
+		        layer.bringToFront();
+		    }
+		    info.update(layer.feature.properties, e.latlng);
+		}
+
+		function resetHighlight(e) {
+		    geojson.resetStyle(e.target);
+		    info.update();
+		}
+
+		function zoomToFeature(e) {
+		    map.fitBounds(e.target.getBounds());
+		}
+
+	</script>
+
+
+</body>
+</html>
