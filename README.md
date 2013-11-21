@@ -65,7 +65,7 @@ var overlayLayers = {
 L.control.layers(baseLayers, overlayLayers, {collapsed: false}).addTo(map);
 map.setView([38, 127], 0);
 ```
-There are more examples at the exampels folder like below.
+There are more examples at the examples folder like below.
 
 ./examples/indexDaum.html
 ./examples/indexDaum.Seoul.html
