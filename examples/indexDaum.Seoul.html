@@ -41,6 +41,7 @@
 		}
 
 	</style>
+	
 </head>
 <body>
 	<div id="map" class="map"></div>
@@ -61,6 +62,12 @@
 			zoomControl: true
 		});
 
+	
+		//L.geoJson(seoul01, {style:{color: "#ff0000",  weight: 1, opacity: 0.3, fillOpacity: 0.1}}).addTo(map);
+
+		//L.geoJson(seoul02, {style:{color: "#0000ff",  weight: 1, opacity: 0.3, fillOpacity: 0.1}}).addTo(map);
+
+		//L.geoJson(seoul03, {style:{color: "#000000",  weight: 1, opacity: 0.3, fillOpacity: 0.1}}).addTo(map);
 
 		//https://groups.google.com/forum/#!topic/osgeo-kr/0oMKjzyLPW4
 		//load a shapefile with EUC-KR, EPSG:2097
@@ -125,7 +132,7 @@
 
 		legend.addTo(map);
 
-		 L.control.scale().addTo(map);
+		L.control.scale().addTo(map);
 
 
 		/*

@@ -24,6 +24,17 @@
   			}
    		);
 
+	L.Proj.CRS.TMS.VWorld = new L.Proj.CRS.TMS(
+			'EPSG:900913',
+			'+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs',
+  			//[-20037508.34, -20037508.34, 20037508.34, 20037508.34],
+  			//[-20037508.34, -20037508.34, 20037508.34, 20037508.34],
+  			[-20037508.34, -20037508.34, 20037508.34, 20037508.34],
+  			{
+  				resolutions: [156543.0339, 78271.517, 39135.7585, 19567.8793, 9783.93965, 4891.96983, 2445.98492, 1222.99246, 611.49623, 305.748115, 152.874058, 76.437029, 38.2185145, 19.1092573, 9.55462865, 4.77731433, 2.38865717, 1.19432859, 0.5971643, 0.29858215, 0.14929108]
+  				//resolutions: [156543.0339, 78271.517, 39135.7585, 19567.8793, 9783.93965, 2445.98492, 2445.98492, 1222.99246, 611.49623, 305.748115, 152.874058, 76.437029, 38.2185145, 19.1092573, 9.55462865, 4.77731433, 2.38865717, 1.19432859, 0.5971643, 0.29858215, 0.14929108]
+  			}
+   		);
 
 
 	L.Proj.TileLayer.TMS.Provider = L.Proj.TileLayer.TMS.extend({
@@ -93,7 +104,25 @@
 
 		    	return toRet;
 		  		}
-			}
+			} else if (providerName == 'VWorld' ) {
+				this.getTileUrl = function (tilePoint) {
+
+			    var toRet;
+		    	console.log( "VWorld/" + this._getSubdomain(tilePoint) + " : " + tilePoint.x + ", " + tilePoint.y + ", " + tilePoint.z );
+
+		    	toRet = L.Util.template(this._url, L.extend({
+		      		s: this._getSubdomain(tilePoint),
+		      		x: tilePoint.x,
+		      		y: tilePoint.y,// - Math.pow(2, tilePoint.z-1),
+		      		z: tilePoint.z
+	    		}, this.options));
+
+		    	return toRet;
+		  		}
+			} 
+
+
+
 		}
 	});
 
@@ -170,8 +199,42 @@
 
 			}
 
+		},		
+		VWorld: {
+			url: 'http://xdworld.vworld.kr:8080/2d/Base/201310/{z}/{x}/{y}.png',
+			//crs: L.Proj.CRS.TMS.EPSG900913, //new Proj4js.Proj('EPSG:900913'),//
+			crs: L.Proj.CRS.TMS.VWorld, 
+			options: {
+				maxZoom: 18, 
+				minZoom: 6,
+				//tms: false,
+				zoomReverse: false,
+				zoomOffset: 0,
+				subdomains: 'abc',
+				continuousWorld: true,
+				attribution:
+      			  '<a target="_blank" href="http://map.vworld.kr/" '
+       			 + 'style="float: left; width: 353px; height: 29px; cursor: pointer; background-image: url(http://map.vworld.kr/images/maps/logo_openplatform.png); background-repeat: no-repeat no-repeat; " '
+   			     + 'title="VWorld 지도로 보시려면 클릭하세요."></a>' 
+  			      + ''
+			},
+			variants: {
+				Street: {},
+				Satellite: {
+					url: 'http://xdworld.vworld.kr:8080/2d/Satellite/201301/{z}/{x}/{y}.jpeg'
+				},
+				Hybrid: {
+					url:  'http://xdworld.vworld.kr:8080/2d/Hybrid/201310/{z}/{x}/{y}.png'
+				}
+
+
+			}
 		}
 	};
+
+	//L.proj.tileLayer.tms.provider = function (provider, crs, options) {
+	//	return new L.Proj.TileLayer.TMS.Provider(provider, crs, options);
+	//};
 
 	
 	L.Proj.TileLayer.TMS.provider = function (provider, crs, options) {

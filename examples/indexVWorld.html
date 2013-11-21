@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>Leaflet Korean Provider Demo</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<!-- Leaflet style. REQUIRED! -->
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+	<!--[if lte IE 8]>
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
+	<![endif]-->
+	<style>
+		html { height: 100% }
+		body { height: 100%; margin: 0; padding: 0;}
+		.map{ height: 100% }
+	</style>
+	
+</head>
+<body>
+	<div id="map" class="map"></div>
+	<script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet-src.js"></script>
+	<script src="../lib/proj4-compressed.js"></script>
+	<script src="../lib/proj4leaflet.js"></script>
+	<script src="../lib/leaflet-providers.js"></script>
+	<script src="../src/Leaflet.KoreanTmsProviders.js"></script>
+	<script>
+
+
+
+		var map = L.map('map', {
+			crs: L.Proj.CRS.TMS.VWorld,
+			continuousWorld: true,
+			worldCopyJump: false,
+			zoomControl: true
+		});
+
+
+		var baseLayers = {
+			'VWorld Street Map': L.Proj.TileLayer.TMS.provider('VWorld.Street'),
+			'VWorld Satellite Map' : L.Proj.TileLayer.TMS.provider('VWorld.Satellite').addTo(map),
+			'OpenStreetMap German Style': L.tileLayer.provider('OpenStreetMap.DE'),
+			'OpenStreetMap Black and White': L.tileLayer.provider('OpenStreetMap.BlackAndWhite'),
+			'Esri WorldStreetMap': L.tileLayer.provider('Esri.WorldStreetMap'),
+	
+		};
+
+		var overlayLayers = {
+			'VWorld Hybrid Map' : L.Proj.TileLayer.TMS.provider('VWorld.Hybrid').addTo(map),
+			'OpenSeaMap': L.tileLayer.provider('OpenSeaMap'),
+			'OpenWeatherMap Clouds': L.tileLayer.provider('OpenWeatherMap.Clouds').addTo(map),
+			'OpenWeatherMap CloudsClassic': L.tileLayer.provider('OpenWeatherMap.CloudsClassic'),
+			'OpenWeatherMap Precipitation': L.tileLayer.provider('OpenWeatherMap.Precipitation'),
+			// uncomment these lines if your screen is really large
+			//'OpenWeatherMap PrecipitationClassic': L.tileLayer.provider('OpenWeatherMap.PrecipitationClassic'),
+			//'OpenWeatherMap Rain': L.tileLayer.provider('OpenWeatherMap.Rain'),
+			//'OpenWeatherMap RainClassic': L.tileLayer.provider('OpenWeatherMap.RainClassic'),
+			//'OpenWeatherMap Pressure': L.tileLayer.provider('OpenWeatherMap.Pressure'),
+			//'OpenWeatherMap PressureContour': L.tileLayer.provider('OpenWeatherMap.PressureContour'),
+			//'OpenWeatherMap Wind': L.tileLayer.provider('OpenWeatherMap.Wind'),
+			//'OpenWeatherMap Temperature': L.tileLayer.provider('OpenWeatherMap.Temperature'),
+			'OpenWeatherMap Snow': L.tileLayer.provider('OpenWeatherMap.Snow')
+	
+		};
+
+		L.control.layers(baseLayers, overlayLayers, {collapsed: false}).addTo(map);
+		map.setView([38, 127], 6);
+		
+		//three markers
+		L.marker([39.0, 125.0]).addTo(map)
+   				 .bindPopup("latlng: 39.0, 125.0");
+
+     	L.marker([37.0, 129.0]).addTo(map)
+   				 .bindPopup("latlng: 37.0, 129.0");
+
+   		var latlng1 = new L.LatLng(38.0, 127.0);
+   		var mypoint1 = L.Proj.CRS.TMS.VWorld.project(latlng1);
+   		L.marker(latlng1).addTo(map).bindPopup("latlng1: " + latlng1 + ", xy1: " + mypoint1.toString());
+
+   		var mypoint2 = L.point(14137575.33075, 4553105.13952);
+   		var latlng2 = L.Proj.CRS.TMS.VWorld.projection.unproject(mypoint2);	
+   		L.marker(latlng2).addTo(map).bindPopup("xy2: " + mypoint2.toString() + ", latlng2: " + latlng2);	
+
+   			
+   		L.control.scale().addTo(map); 
+
+
+	</script>
+</body>
+</html>

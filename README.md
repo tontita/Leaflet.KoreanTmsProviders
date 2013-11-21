@@ -65,6 +65,17 @@ var overlayLayers = {
 L.control.layers(baseLayers, overlayLayers, {collapsed: false}).addTo(map);
 map.setView([38, 127], 0);
 ```
+There are more examples at the exampels folder like below.
+
+./examples/indexDaum.html
+./examples/indexDaum.Seoul.html
+./examples/indexNaver.html
+./examples/indexVWorld.html
+
+DaumMap and NaverMap use local Coordinate Reference Systems (CRS), which are EPSG:5181 and EPSG:5179, respectively. Therefore, they are not compatible with other layers that are based on EPSG:4326 or EPSG:900913.
+
+On the contrary, VWorld uses EPSG:900913 as its CRS, so it can be used with other layers (e.g. googlemap, OpenStreetMap, OpenWeatherMap, etc.) that are using same CRS. 
+
 
 Providers
 ===
@@ -78,13 +89,18 @@ Current options suitable for basemaps are:
     * NaverMap.Satellite
     * NaverMap.Hybrid
     * NaverMap.Cadastral
-
+* VWorld
+    * VWorld.Street
+    * VWorld.Satellite
+ 
 Current options suitable for overlays are:
 * DaumMap
     * DaumMap.Physical
     * DaumMap.Hybrid
 * NaverMap
     * NaverMap.Cadastral
+* VWorld
+    * VWorld.Hybrid
 
 
 This work was inspired from <http://plugins.qgis.org/plugins/tmsforkorea>, <https://github.com/leaflet-extras/leaflet-providers>, and <https://github.com/kartena/Proj4Leaflet>.
