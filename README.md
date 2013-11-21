@@ -72,9 +72,9 @@ There are more examples at the examples folder like below.
 ./examples/indexNaver.html
 ./examples/indexVWorld.html
 ```
-DaumMap and NaverMap use local Coordinate Reference Systems (CRS), which are EPSG:5181 and EPSG:5179, respectively. Therefore, they are not compatible with other layers that are based on EPSG:4326 or EPSG:900913.
+DaumMap and NaverMap use local Coordinate Reference Systems (CRS), which are EPSG:5181 and EPSG:5179, respectively. Therefore, they are not compatible with other international tile providers that are based on EPSG:4326 or EPSG:900913.
 
-On the contrary, VWorld uses EPSG:900913 as its CRS, so it can be used with other layers (e.g. googlemap, OpenStreetMap, OpenWeatherMap, etc.) that are using same CRS. 
+On the contrary, VWorld uses EPSG:900913 as its CRS, so it can be used with other tile providers (e.g. googlemap, OpenStreetMap, OpenWeatherMap, etc.) that are using same CRS (i.e. EPSG:4326 or EPSG:900913). 
 
 
 Providers
