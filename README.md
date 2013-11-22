@@ -68,13 +68,12 @@ map.setView([38, 127], 0);
 There are more examples at the exampels folder like below.
 
 ./examples/indexDaum.html
-./examples/indexDaum.Seoul.html
 ./examples/indexNaver.html
 ./examples/indexVWorld.html
 
-DaumMap and NaverMap use local Coordinate Reference Systems (CRS), which are EPSG:5181 and EPSG:5179, respectively. Therefore, they are not compatible with other layers that are based on EPSG:4326 or EPSG:900913.
+DaumMap and NaverMap use local Coordinate Reference Systems (CRS), which are EPSG:5181 and EPSG:5179, respectively. Therefore, they are not compatible with other international tile providers that are based on EPSG:4326 or EPSG:900913.
 
-On the contrary, VWorld uses EPSG:900913 as its CRS, so it can be used with other layers (e.g. googlemap, OpenStreetMap, OpenWeatherMap, etc.) that are using same CRS. 
+On the contrary, VWorld uses EPSG:900913 as its CRS, so it can be used with other tile providers (e.g. googlemap, OpenStreetMap, OpenWeatherMap, etc.) that are using the same CRS (i.e. EPSG:4326 or EPSG:900913). 
 
 
 Providers
