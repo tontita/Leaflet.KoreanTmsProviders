@@ -89,40 +89,6 @@
 			var layerOpts = L.Util.extend({}, provider.options, options);
 			L.Proj.TileLayer.TMS.prototype.initialize.call(this, provider.url, provider.crs, layerOpts);
 
-			if (providerName == 'NaverMap' ) {
-				this.getTileUrl = function (tilePoint) {
-
-			    var toRet;
-		    	//console.log( "NaverMap/" + this._getSubdomain(tilePoint) + " : " + tilePoint.x + ", " + tilePoint.y + "("  + (tilePoint.y - Math.pow(2, tilePoint.z-1)) + ")" + ", " + tilePoint.z );
-
-		    	toRet = L.Util.template(this._url, L.extend({
-		      		s: this._getSubdomain(tilePoint),
-		      		x: tilePoint.x,
-		      		y: tilePoint.y - Math.pow(2, tilePoint.z-1),
-		      		z: tilePoint.z //+ 1
-	    		}, this.options));
-
-		    	return toRet;
-		  		}
-			} else if (providerName == 'VWorld' ) {
-				this.getTileUrl = function (tilePoint) {
-
-			    var toRet;
-		    	console.log( "VWorld/" + this._getSubdomain(tilePoint) + " : " + tilePoint.x + ", " + tilePoint.y + ", " + tilePoint.z );
-
-		    	toRet = L.Util.template(this._url, L.extend({
-		      		s: this._getSubdomain(tilePoint),
-		      		x: tilePoint.x,
-		      		y: tilePoint.y,// - Math.pow(2, tilePoint.z-1),
-		      		z: tilePoint.z
-	    		}, this.options));
-
-		    	return toRet;
-		  		}
-			} 
-
-
-
 		}
 	});
 
@@ -173,7 +139,6 @@
 			options: {
 				maxZoom: 13, 
 				minZoom: 0,
-				tms: true,
 				zoomOffset: 1,
 				subdomains: '1234',
 				continuousWorld: true,
@@ -207,9 +172,9 @@
 			options: {
 				maxZoom: 18, 
 				minZoom: 6,
-				//tms: false,
-				zoomReverse: false,
-				zoomOffset: 0,
+				tms: true, 
+				//zoomReverse: false,
+				//zoomOffset: 0,
 				subdomains: 'abc',
 				continuousWorld: true,
 				attribution:
