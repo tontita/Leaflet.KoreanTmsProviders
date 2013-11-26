@@ -79,7 +79,7 @@ On the contrary, VWorld uses EPSG:900913 as its CRS, so it can be used with othe
 
 [Korean Map Tiles on Leaflet](http://tontita.github.io/Leaflet.KoreanTmsProviders/) 
 
-Providers
+# Providers
 ===
 
 Current options suitable for basemaps are:
