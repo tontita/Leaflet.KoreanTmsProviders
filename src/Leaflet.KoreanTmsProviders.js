@@ -109,7 +109,7 @@
 				zoomOffset: 1,
 				subdomains: '0123',
 				continuousWorld: true,
-				attribution: 'Map data &copy; <a href="http://local.daum.net/map/index.jsp">DaumMap</a>'
+				attribution: 'Map data &copy; <a href="http://map.daum.net/">DaumMap</a>'
 					
 			},
 			variants: {
