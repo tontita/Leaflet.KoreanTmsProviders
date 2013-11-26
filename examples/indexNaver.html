@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>Leaflet Korean Provider Demo</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<!-- Leaflet style. REQUIRED! -->
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
+	<!--[if lte IE 8]>
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.ie.css" />
+	<![endif]-->
+	<style>
+		html { height: 100% }
+		body { height: 100%; margin: 0; padding: 0;}
+		.map{ height: 100% }
+	</style>
+	
+</head>
+<body>
+	<div id="map" class="map"></div>
+	<script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet-src.js"></script>
+	<script src="../lib/proj4-compressed.js"></script>
+	<script src="../lib/proj4leaflet.js"></script>
+	<script src="../src/Leaflet.KoreanTmsProviders.js"></script>
+	<script>
+
+
+
+		var map = L.map('map', {
+			crs: L.Proj.CRS.TMS.Naver,
+			continuousWorld: true,
+			worldCopyJump: false,
+			zoomControl: true
+		});
+
+
+		var baseLayers = {
+			'Naver Street Map': L.Proj.TileLayer.TMS.provider('NaverMap.Street').addTo(map),
+			'Naver Satellite Map': L.Proj.TileLayer.TMS.provider('NaverMap.Satellite'),
+			'Naver Hybrid Map': L.Proj.TileLayer.TMS.provider('NaverMap.Hybrid'),
+			'Naver Cadastral Map': L.Proj.TileLayer.TMS.provider('NaverMap.Cadastral', null, {opacity : 1.0})
+			
+		};
+
+		var overlayLayers = {
+			'Naver Cadastral Map': L.Proj.TileLayer.TMS.provider('NaverMap.Cadastral')
+		};
+
+		L.control.layers(baseLayers, overlayLayers, {collapsed: false}).addTo(map);
+		map.setView([38, 127], 1);
+
+		
+		//three markers
+		L.marker([39.0, 125.0]).addTo(map)
+   				 .bindPopup("latlng: 39.0, 125.0")
+   				 .openPopup();
+
+     	L.marker([37.0, 129.0]).addTo(map)
+   				 .bindPopup("latlng: 37.0, 129.0")
+   				 .openPopup(); 				 
+   		var latlng2 = new L.LatLng(38.0, 127.5);
+   		var xy2 = L.Proj.CRS.TMS.Naver.project(latlng2);
+   		L.marker(latlng2).addTo(map)
+   				 .bindPopup("latlng: " + latlng2 + ", xy: " + xy2.toString())
+   				 .openPopup();
+
+   		L.control.scale().addTo(map); 		 
+
+
+	</script>
+</body>
+</html>
