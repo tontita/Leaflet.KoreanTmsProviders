@@ -43,7 +43,7 @@ var overlayLayers = {
 L.control.layers(baseLayers, overlayLayers, {collapsed: false}).addTo(map);
 ```
 
-An example
+# Example
 ```Javascript
 var map = L.map('map', {
 	crs: L.Proj.CRS.TMS.Daum, 
@@ -75,6 +75,9 @@ DaumMap and NaverMap use local Coordinate Reference Systems (CRS), which are EPS
 
 On the contrary, VWorld uses EPSG:900913 as its CRS, so it can be used with other tile providers (e.g. googlemap, OpenStreetMap, OpenWeatherMap, etc.) that are using the same CRS (i.e. EPSG:4326 or EPSG:900913). 
 
+# Live Demo
+
+[Korean Map Tiles on Leaflet](http://tontita.github.io/Leaflet.KoreanTmsProviders/) 
 
 Providers
 ===
