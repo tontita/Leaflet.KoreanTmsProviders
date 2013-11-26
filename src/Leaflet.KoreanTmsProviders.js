@@ -109,11 +109,8 @@
 				zoomOffset: 1,
 				subdomains: '0123',
 				continuousWorld: true,
-				attribution:
-					'<a target="_blank" href="http://local.daum.net/map/index.jsp" '
-					+ 'style="float: left; width: 38px; height: 17px; cursor: pointer; background-image: url(http://i1.daumcdn.net/localimg/localimages/07/2008/map/n_local_img_03_b.png); background-repeat: no-repeat no-repeat; " '
-					+ 'title="Daum 지도로 보시려면 클릭하세요."></a>' 
-					+ 'ⓒ 2013 Daum'
+				attribution: 'Map data &copy; <a href="http://local.daum.net/map/index.jsp">DaumMap</a>'
+					
 			},
 			variants: {
 				Street: {},
@@ -142,10 +139,7 @@
 				zoomOffset: 1,
 				subdomains: '1234',
 				continuousWorld: true,
-				attribution:
-					'<a href="http://www.nhncorp.com" target="_blank" style="text-decoration: none !important;">© <span style="display: inline; font-family: Tahoma,sans-serif !important; font-size: 9px !important; font-weight: bold !important; font-style: normal !important; color: #009BC8 !important; text-decoration: none !important;">'
-					+ 'NHN Corp.</span></a>'
-					+ '<img class="nmap_logo_map" src="http://static.naver.net/maps2/logo_naver_s.png" width="43" height="9" alt="NAVER">'
+				attribution: 'Map data &copy; <a href="http://map.naver.com">NaverMap</a>'
 			},
 			variants: {
 				Street: {},
@@ -177,11 +171,7 @@
 				//zoomOffset: 0,
 				subdomains: 'abc',
 				continuousWorld: true,
-				attribution:
-      			  '<a target="_blank" href="http://map.vworld.kr/" '
-       			 + 'style="float: left; width: 353px; height: 29px; cursor: pointer; background-image: url(http://map.vworld.kr/images/maps/logo_openplatform.png); background-repeat: no-repeat no-repeat; " '
-   			     + 'title="VWorld 지도로 보시려면 클릭하세요."></a>' 
-  			      + ''
+				attribution: 'Map data &copy; <a href="http://map.vworld.kr">VWorld</a>'
 			},
 			variants: {
 				Street: {},
