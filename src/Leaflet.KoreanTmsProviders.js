@@ -164,6 +164,7 @@
 			crs: L.Proj.CRS.TMS.VWorld, 
 			options: {
 				maxZoom: 18, 
+				//maxNativeZoom: 18,
 				minZoom: 6,
 				tms: true, 
 				//zoomReverse: false,
