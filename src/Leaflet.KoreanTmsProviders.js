@@ -2,8 +2,6 @@
 (function () {
 	'use strict';
 
-	//var crsDaum 
-	//L.Proj.TileLayer.TMS.crsDAUM 
 	L.Proj.CRS.TMS.Daum = new L.Proj.CRS.TMS(
 			'EPSG:5181',
   			'+proj=tmerc +lat_0=38 +lon_0=127 +k=1 +x_0=200000 +y_0=500000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
@@ -40,9 +38,7 @@
 	L.Proj.TileLayer.TMS.Provider = L.Proj.TileLayer.TMS.extend({
 		initialize: function (arg, crs, options) {
 			var providers = L.Proj.TileLayer.TMS.Provider.providers;
-
 			var parts = arg.split('.');
-
 			var providerName = parts[0];
 			var variantName = parts[1];
 
@@ -167,8 +163,6 @@
 				maxZoom: 18, 
 				minZoom: 6,
 				tms: true, 
-				//zoomReverse: false,
-				//zoomOffset: 0,
 				subdomains: 'abc',
 				continuousWorld: true,
 				attribution: 'Map data &copy; <a href="http://map.vworld.kr">VWorld</a>'
@@ -182,14 +176,9 @@
 					url:  'http://xdworld.vworld.kr:8080/2d/Hybrid/201310/{z}/{x}/{y}.png'
 				}
 
-
 			}
 		}
 	};
-
-	//L.proj.tileLayer.tms.provider = function (provider, crs, options) {
-	//	return new L.Proj.TileLayer.TMS.Provider(provider, crs, options);
-	//};
 
 	
 	L.Proj.TileLayer.TMS.provider = function (provider, crs, options) {
@@ -252,5 +241,6 @@
 	L.control.layers.provided = function (baseLayers, overlays, options) {
 		return new L.Control.Layers.Provided(baseLayers, overlays, options);
 	};
+	
 }());
 
