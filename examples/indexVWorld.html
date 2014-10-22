@@ -29,7 +29,6 @@
 
 
 		var map = L.map('map', {
-			crs: L.Proj.CRS.TMS.VWorld,
 			continuousWorld: true,
 			worldCopyJump: false,
 			zoomControl: true
@@ -37,8 +36,8 @@
 
 
 		var baseLayers = {
-			'VWorld Street Map': L.Proj.TileLayer.TMS.provider('VWorld.Street'),
-			'VWorld Satellite Map' : L.Proj.TileLayer.TMS.provider('VWorld.Satellite').addTo(map),
+			'VWorld Street Map': L.tileLayer.provider('VWorld.Street'),
+			'VWorld Satellite Map' : L.tileLayer.provider('VWorld.Satellite').addTo(map),
 			'OpenStreetMap German Style': L.tileLayer.provider('OpenStreetMap.DE'),
 			'OpenStreetMap Black and White': L.tileLayer.provider('OpenStreetMap.BlackAndWhite'),
 			'Esri WorldStreetMap': L.tileLayer.provider('Esri.WorldStreetMap'),
@@ -46,7 +45,7 @@
 		};
 
 		var overlayLayers = {
-			'VWorld Hybrid Map' : L.Proj.TileLayer.TMS.provider('VWorld.Hybrid').addTo(map),
+			'VWorld Hybrid Map' : L.tileLayer.provider('VWorld.Hybrid').addTo(map),
 			'OpenSeaMap': L.tileLayer.provider('OpenSeaMap'),
 			'OpenWeatherMap Clouds': L.tileLayer.provider('OpenWeatherMap.Clouds').addTo(map),
 			'OpenWeatherMap CloudsClassic': L.tileLayer.provider('OpenWeatherMap.CloudsClassic'),
@@ -74,14 +73,8 @@
    				 .bindPopup("latlng: 37.0, 129.0");
 
    		var latlng1 = new L.LatLng(38.0, 127.0);
-   		var mypoint1 = L.Proj.CRS.TMS.VWorld.project(latlng1);
-   		L.marker(latlng1).addTo(map).bindPopup("latlng1: " + latlng1 + ", xy1: " + mypoint1.toString());
+   		L.marker(latlng1).addTo(map).bindPopup("latlng1: " + latlng1); 
 
-   		var mypoint2 = L.point(14137575.33075, 4553105.13952);
-   		var latlng2 = L.Proj.CRS.TMS.VWorld.projection.unproject(mypoint2);	
-   		L.marker(latlng2).addTo(map).bindPopup("xy2: " + mypoint2.toString() + ", latlng2: " + latlng2);	
-
-   			
    		L.control.scale().addTo(map); 
 
 
