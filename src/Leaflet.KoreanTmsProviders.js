@@ -2,16 +2,6 @@
 (function () {
 	'use strict';
 
-	L.Proj.CRS.TMS.Daum = new L.Proj.CRS.TMS(
-			'EPSG:5181',
-  			'+proj=tmerc +lat_0=38 +lon_0=127 +k=1 +x_0=200000 +y_0=500000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
-  			//[-30000, -60000, 494288, 464288],
-  			[-30000, -60000, 494288, 988576],
-  			{
-  				resolutions: [2048, 1024, 512, 256, 128, 64, 32, 16, 8, 4, 2, 1, 0.5, 0.25]
-  			}
-   		);
-
 	L.Proj.CRS.TMS.Naver = new L.Proj.CRS.TMS(
 			'EPSG:5179',
 			'+proj=tmerc +lat_0=38 +lon_0=127.5 +k=0.9996 +x_0=1000000 +y_0=2000000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
@@ -95,37 +85,7 @@
 
 	//jshint maxlen:220
 	L.Proj.TileLayer.TMS.Provider.providers = {
-		DaumMap: {
-			url: 'http://i{s}.maps.daum-img.net/map/image/G03/i/1.20/L{z}/{y}/{x}.png',
-			crs: L.Proj.CRS.TMS.Daum, //L.Proj.TileLayer.TMS.crsDAUM, //crsDaum,
-			options: {
-				maxZoom: 13, 
-				minZoom: 0,
-				zoomReverse: true,
-				zoomOffset: 1,
-				subdomains: '0123',
-				continuousWorld: true,
-				attribution: 'Map data &copy; <a href="http://map.daum.net/">DaumMap</a>'
-					
-			},
-			variants: {
-				Street: {},
-				Satellite: {
-					url: 'http://s{s}.maps.daum-img.net/L{z}/{y}/{x}.jpg'
-				},
-				Physical: {
-					url: 'http://sr{s}.maps.daum-img.net/map/image/G03/sr/1.00/L{z}/{y}/{x}.png',
-					options: {
-						opacity: 0.75
-					}
-				},
-				Hybrid: {
-					url: 'http://h{s}.maps.daum-img.net/map/image/G03/h/1.20/L{z}/{y}/{x}.png'
-				}
 
-
-			}
-		},
 		NaverMap: {
 			url: 'http://onetile{s}.map.naver.net/get/29/0/0/{z}/{x}/{y}/bl_vc_bg/ol_vc_an',
 			crs: L.Proj.CRS.TMS.Naver, 
