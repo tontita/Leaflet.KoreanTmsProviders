@@ -197,6 +197,7 @@
 			return L.Control.Layers.prototype.onAdd.call(this, map);
 		}
 	});
+	
 
 	L.control.layers.provided = function (baseLayers, overlays, options) {
 		return new L.Control.Layers.Provided(baseLayers, overlays, options);
