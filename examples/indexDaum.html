@@ -26,35 +26,34 @@
   <script type="text/javascript">
     
     var layerOrder = {
-      'Naver Street Map'   : 1,
-      'Naver Satellite Map': 2,
-      'Naver Physical Map' : 3,
-      'Naver Hybrid Map'   : 4, 
-      'Naver Cadastral Map': 5,
-      'Naver Bicycle Map'  : 6,
-      'Naver Traffic Map'  : 7
+      'Daum Street Map'   : 1,
+      'Daum SkyView Map'  : 2,
+      'Daum Physical Map' : 3,
+      'Daum Hybrid Map'   : 4, 
+      'Daum Cadastral Map': 5,
+      'Daum Bicycle Map'  : 6,
+      'Daum Traffic Map'  : 7
     }
 
     var map = new L.Map('map', {
       center: new L.LatLng(38, 127),
       zoom: 1, 
-      crs: L.Proj.CRS.Naver,
+      crs: L.Proj.CRS.Daum,
       worldCopyJump: false,      
     });
 
     var baseLayers = {
-      'Naver Street Map'   : L.tileLayer.koreaProvider('NaverMap.Street').addTo(map),
-      'Naver Satellite Map': L.tileLayer.koreaProvider('NaverMap.Satellite')
+      'Daum Street Map' : L.tileLayer.koreaProvider('DaumMap.Street').addTo(map),
+      'Daum SkyView Map': L.tileLayer.koreaProvider('DaumMap.Satellite')
     };
 
-    var physicalMap = L.tileLayer.koreaProvider('NaverMap.Physical');
-    var hybridMap = L.tileLayer.koreaProvider('NaverMap.Hybrid');
+    var hybridMap = L.tileLayer.koreaProvider('DaumMap.Hybrid');
 
     var overlayLayers = {
-      'Naver Physical Map' : physicalMap,
-      'Naver Cadastral Map': L.tileLayer.koreaProvider('NaverMap.Cadastral'),
-      'Naver Bicycle Map'  : L.tileLayer.koreaProvider('NaverMap.Bicycle'),
-      'Naver Traffic Map'  : L.tileLayer.koreaProvider('NaverMap.Traffic'),
+      'Daum Physical Map' : L.tileLayer.koreaProvider('DaumMap.Physical'),
+      'Daum Cadastral Map': L.tileLayer.koreaProvider('DaumMap.Cadastral'),
+      'Daum Bicycle Map'  : L.tileLayer.koreaProvider('DaumMap.Bicycle'),
+      'Daum Traffic Map'  : L.tileLayer.koreaProvider('DaumMap.Traffic'),
     };    
 
     var layerControl = L.control.layers(baseLayers, overlayLayers, {
@@ -66,7 +65,7 @@
          return 0;
       }
     }).addTo(map);
-
+    
     L.control.scale().addTo(map); 
     
     //three markers
@@ -78,22 +77,17 @@
            .bindPopup("latlng: 37.0, 129.0")
            .openPopup();         
       var latlng = L.latLng(38.0, 127.5);
-      var xy = L.Proj.CRS.Naver.project(latlng);
+      var xy = L.Proj.CRS.Daum.project(latlng);
       L.marker(latlng).addTo(map)
            .bindPopup("latlng: " + latlng + ", xy: " + xy.toString())
            .openPopup();
 
     map.on('baselayerchange', function (e) {
-      if (e.name === 'Naver Satellite Map') {
-        if (map.hasLayer(physicalMap)) map.removeLayer(physicalMap);
-
-        layerControl.addOverlay(hybridMap, 'Naver Hybrid Map');
-        layerControl.removeLayer(physicalMap);
+      if (e.name === 'Daum SkyView Map') {
+        layerControl.addOverlay(hybridMap, 'Daum Hybrid Map');
       } else {
         if (map.hasLayer(hybridMap)) map.removeLayer(hybridMap);
-
         layerControl.removeLayer(hybridMap);
-        layerControl.addOverlay(physicalMap, 'Naver Physical Map');
       }
     });
 
